@@ -1,0 +1,17 @@
+services:
+  jenkins:
+    ports:
+      - 8080:8080
+    image: jenkins/jenkins
+  jenkins-ui-api:
+    build: jenkins-ui-api-nodejs/.
+    ports:
+      - 8180:8180
+  jenkins-ui-dashboard-react:
+    build: jenkins-ui-dashboard-react/.
+    ports:
+      - 8280:8280
+  jenkins-ui-dashboard-vuejs:
+    build: jenkins-ui-dashboard-vuejs/.
+    ports:
+      - 8380:8380

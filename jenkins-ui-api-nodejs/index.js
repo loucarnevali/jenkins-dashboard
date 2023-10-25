@@ -91,9 +91,7 @@ function jobFolder(url) {
   });
 }
 
-app.get('/api/v1/jobs', keycloak.enforcer(['resource:view', 'resource:write'], {
-  resource_server_id: 'nodejs-apiserver'
-}), async (req, res) => {
+app.get('/api/v1/jobs', async (req, res) => {
   axios.post(`http://${JENKINS_USERNAME}:${JENKINS_API_KEY}@${JENKINS_API_BASE_URL}` + '/api/json',)
     .then(response => {
       Object.entries(response.data).forEach(([key, value]) => {
