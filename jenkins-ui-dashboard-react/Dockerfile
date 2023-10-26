@@ -1,8 +1,6 @@
-FROM node:20.9.0-bullseye as builder
+FROM registry.access.redhat.com/ubi9/nodejs-18
 COPY . .
+USER root
 RUN npm i
 RUN npm run build
-FROM nginx:latest
-COPY --from=builder /dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", "serve"]
