@@ -1,17 +1,31 @@
 services:
   jenkins:
+    container_name: jenkins
+    hostname: jenkins
     ports:
       - 8080:8080
     image: jenkins/jenkins
   jenkins-ui-api:
+    container_name: jenkins-ui-api
+    hostname: jenkins-ui-api
     build: jenkins-ui-api-nodejs/.
     ports:
       - 8180:8180
   jenkins-ui-dashboard-react:
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8280
+      - NODE_OPTIONS=--max-old-space-size=8192
+    shm_size: 2gb
+    container_name: jenkins-ui-dashboard-react
+    hostname: jenkins-ui-dashboard-react
     build: jenkins-ui-dashboard-react/.
     ports:
       - 8280:8280
   jenkins-ui-dashboard-vuejs:
+    shm_size: 2gb
+    container_name: jenkins-ui-dashboard-vuejs
+    hostname: jenkins-ui-dashboard-vuejs
     build: jenkins-ui-dashboard-vuejs/.
     ports:
       - 8380:8380

@@ -28,9 +28,13 @@ const config = {
         path: path.resolve(__dirname, 'dist'),
     },
     devServer: {
-        open: true,
-        port: 8280,
+        // Enable Compress
+        compress: true,
+        // Enable hot reloading
+        hot: true,
         host: '0.0.0.0',
+        // Port
+        port: 8280,
     },
     plugins: [
         new HtmlWebpackPlugin({

@@ -3,7 +3,7 @@ module.exports = {
       port: 8380,
       proxy: {
         "^/api": {
-        target: 'http://localhost:8180',
+        target: 'http://jenkins:8180',
         ws: true,
         changeOrigin: true
       }

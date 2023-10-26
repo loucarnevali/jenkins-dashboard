@@ -11,13 +11,6 @@ const port = 8180
 const memoryStore = new session.MemoryStore();
 const keycloak = new Keycloak({ store: memoryStore });
 
-app.use(session({
-  secret: 'eJc5sHHGFpB3pfhwtfKxVQkXGgOCnlo2',
-  resave: false,
-  saveUninitialized: true,
-  store: memoryStore
-}))
-
 var JENKINS_USERNAME = process.env.JENKINS_USERNAME
 var JENKINS_API_KEY = process.env.JENKINS_API_KEY
 var JENKINS_API_BASE_URL = process.env.JENKINS_API_BASE_URL

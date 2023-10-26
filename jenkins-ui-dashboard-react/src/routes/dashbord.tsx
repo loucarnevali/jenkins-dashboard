@@ -30,7 +30,7 @@ export default function dashboard() {
                 which means incorporating more testing on the left side of the DevOps lifecycle.
             </Modal>
         </React.Fragment>
-        <iframe src="http://192.168.1.202:8380/" />
+        <iframe src="http://jenkins-ui-dashboard-vuejs:8380/" />
     </>
     );
 }
