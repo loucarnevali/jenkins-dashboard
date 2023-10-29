@@ -7,8 +7,8 @@ services:
     image: jenkins/jenkins
   jenkins-ui-api:
     environment:
-      - JENKINS_USERNAME=fsbano
-      - JENKINS_API_KEY=11c54a0aa387cd18150f1b40d7aad30649
+      - JENKINS_USERNAME=lc-admin
+      - JENKINS_API_KEY=1136f38594b5879d104844a64545dfc92d
       - JENKINS_API_BASE_URL=jenkins:8080
     container_name: jenkins-ui-api
     hostname: jenkins-ui-api
