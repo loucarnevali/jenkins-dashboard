@@ -30,9 +30,6 @@ async function jobDetails(name, color, url) {
           var date = new Date(value)
           jobs.push("{ \"name\":\"" + name + "\",\"color\":\"" + color + "\",\"date\":\"" + moment(date).format('yyyy-MM-DD HH:mm:ss') + "\",\"build\":\"" + displayName + "\"}")
           break
-         case "lastBuild":
-          value?.url == null ? jobs.push("{ \"name\":\"" + name + "\",\"color\":\"" + color + "\",\"build\":\"" + '' + "\"}") : null
-          break
       }
     })
   })
@@ -49,9 +46,14 @@ async function jobDescription(url) {
         case "color":
           color = value
           break
-        case "lastBuild":
-          value?.url == null ? jobDetails(name, color, url) : jobDetails(name, color, value.url)
-          break
+        case "builds":
+          Object.entries(value).forEach(([index]) => {
+            switch(value[index]._class) {
+              case "org.jenkinsci.plugins.workflow.job.WorkflowRun":
+                jobDetails(name, color,value[index].url)
+                break
+            }
+          })
       }
     })
   })
