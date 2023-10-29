@@ -5,6 +5,8 @@ services:
     ports:
       - 8080:8080
     image: jenkins/jenkins
+    volumes:
+      - ./jenkins-data:/var/jenkins_home
   jenkins-ui-api:
     environment:
       - JENKINS_USERNAME=lc-admin
