@@ -14,15 +14,19 @@ import { JobDetailsEntity } from './job-details.entity';
 
 const PostgresDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host: "postgres",
   port: 5432,
-  username: "jenkins",
-  password: "jenkins",
-  database: "jenkins",
+  username: "postgres",
+  password: "postgres",
+  database: "postgres",
+  synchronize: true,
   entities: [
-    'JobDetailsEntity',
+    JobDetailsEntity,
   ],
 })
+
+PostgresDataSource.initialize();
+
 
 const { 
   JENKINS_USERNAME,
@@ -48,8 +52,6 @@ async function JobDetails(name:string, color:string, url:string) {
       date: moment(date).format('yyyy-MM-DD HH:mm:ss'),
       build: displayName,
     });
-
-    await PostgresDataSource.initialize();
 
     const jobDetailsEntity = new JobDetailsEntity(name, color, date, displayName);
     await PostgresDataSource.manager.save(jobDetailsEntity);
