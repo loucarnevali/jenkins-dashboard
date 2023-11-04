@@ -22,16 +22,24 @@ services:
       - HOST=0.0.0.0
       - PORT=8280
       - NODE_OPTIONS=--max-old-space-size=8192
-    shm_size: 2gb
     container_name: jenkins-ui-dashboard-react
     hostname: jenkins-ui-dashboard-react
     build: jenkins-ui-dashboard-react/.
     ports:
       - 8280:8280
   jenkins-ui-dashboard-vuejs:
-    shm_size: 2gb
     container_name: jenkins-ui-dashboard-vuejs
     hostname: jenkins-ui-dashboard-vuejs
     build: jenkins-ui-dashboard-vuejs/.
     ports:
       - 8380:8380
+  keycloak:
+    container_name: keycloak
+    hostname: keycloak
+    image: keycloak/keycloak
+  postgres:
+    container_name: postgres
+    hostname: postgres
+    image: postgres
+    ports:
+      - 5432:5432    
