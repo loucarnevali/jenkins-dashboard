@@ -16,6 +16,7 @@ const {
 
 const jobs: any[] = [];
 
+// FUNCTION TO SEARCH FOR DEATILS OF SPECIFIC JOB
 async function JobDetails(name:string, color:string, url:string) {
   const response = await axios.get(
     `http://${JENKINS_USERNAME}:${JENKINS_API_KEY}@${JENKINS_API_BASE_URL}` +
@@ -32,6 +33,7 @@ async function JobDetails(name:string, color:string, url:string) {
   });
 }
 
+// FUNCTION TO SEARCH FOR A JOB DESCRIPTION
 async function JobDescription(url: string) {
   const response = await axios.get(
     `http://${JENKINS_USERNAME}:${JENKINS_API_KEY}@${JENKINS_API_BASE_URL}` +
@@ -46,6 +48,7 @@ async function JobDescription(url: string) {
   }
 }
 
+// FUNCTION TO SEARCH FOR JOBS WITHIN A DIRECTORY
 async function JobFolder(url: string) {
   const response = await axios.get(
     `http://${JENKINS_USERNAME}:${JENKINS_API_KEY}@${JENKINS_API_BASE_URL}` +
