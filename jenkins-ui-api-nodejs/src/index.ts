@@ -9,8 +9,20 @@ const app = express();
 const port = 8180;
 
 import "reflect-metadata"
-import { getManager } from 'typeorm';
-import { JobDetailsRepository } from './job-details.entity';
+import { DataSource  } from 'typeorm';
+import { JobDetailsEntity } from './job-details.entity';
+
+const PostgresDataSource = new DataSource({
+  type: "postgres",
+  host: "localhost",
+  port: 5432,
+  username: "jenkins",
+  password: "jenkins",
+  database: "jenkins",
+  entities: [
+    'JobDetailsEntity',
+  ],
+})
 
 const { 
   JENKINS_USERNAME,
@@ -22,20 +34,30 @@ const jobs: any[] = [];
 
 // FUNCTION TO SEARCH FOR DEATILS OF SPECIFIC JOB
 async function JobDetails(name:string, color:string, url:string) {
-  const response = await axios.get(
-    `http://${JENKINS_USERNAME}:${JENKINS_API_KEY}@${JENKINS_API_BASE_URL}` +
-    `${url.match(/\/job.*\//)}` + 
-    `/api/json`);
-  const { displayName, timestamp } = response.data;
+  try {
+    const response = await axios.get(
+      `http://${JENKINS_USERNAME}:${JENKINS_API_KEY}@${JENKINS_API_BASE_URL}` +
+      `${url.match(/\/job.*\//)}` + 
+      `/api/json`);
+    const { displayName, timestamp } = response.data;
 
-  const date = new Date(timestamp);
-  jobs.push({
-    name,
-    color,
-    date: moment(date).format('yyyy-MM-DD HH:mm:ss'),
-    build: displayName,
-  });
+    const date = new Date(timestamp);
+    jobs.push({
+      name,
+      color,
+      date: moment(date).format('yyyy-MM-DD HH:mm:ss'),
+      build: displayName,
+    });
+
+    await PostgresDataSource.initialize();
+
+    const jobDetailsEntity = new JobDetailsEntity(name, color, date, displayName);
+    await PostgresDataSource.manager.save(jobDetailsEntity);
+    } catch (err) {
+      console.error("Error during JobDetails", err);
+    }
 }
+
 
 // FUNCTION TO SEARCH FOR A JOB DESCRIPTION
 async function JobDescription(url: string) {
