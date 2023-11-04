@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
-export class JobDetails {
+export class JobDetailsRepository {
   @PrimaryGeneratedColumn()
   id: number;
 

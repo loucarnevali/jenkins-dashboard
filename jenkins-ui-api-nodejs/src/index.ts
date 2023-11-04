@@ -10,7 +10,7 @@ const port = 8180;
 
 import "reflect-metadata"
 import { getManager } from 'typeorm';
-import { JobDetails } from './job-details.entity';
+import { JobDetailsRepository } from './job-details.entity';
 
 const { 
   JENKINS_USERNAME,
