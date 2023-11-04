@@ -8,6 +8,10 @@ import { Request, Response } from 'express';
 const app = express();
 const port = 8180;
 
+import "reflect-metadata"
+import { getManager } from 'typeorm';
+import { JobDetails } from './job-details.entity';
+
 const { 
   JENKINS_USERNAME,
   JENKINS_API_KEY,
