@@ -9,24 +9,8 @@ const app = express();
 const port = 8180;
 
 import "reflect-metadata"
-import { DataSource  } from 'typeorm';
+import { AppDataSource } from "./app-data-source"
 import { JobDetailsEntity } from './job-details.entity';
-
-const PostgresDataSource = new DataSource({
-  type: "postgres",
-  host: "postgres",
-  port: 5432,
-  username: "postgres",
-  password: "postgres",
-  database: "postgres",
-  synchronize: true,
-  entities: [
-    JobDetailsEntity,
-  ],
-})
-
-PostgresDataSource.initialize();
-
 
 const { 
   JENKINS_USERNAME,
@@ -54,7 +38,7 @@ async function JobDetails(name:string, color:string, url:string) {
     });
 
     const jobDetailsEntity = new JobDetailsEntity(name, color, date, displayName);
-    await PostgresDataSource.manager.save(jobDetailsEntity);
+    await AppDataSource.manager.save(jobDetailsEntity);
     } catch (err) {
       console.error("Error during JobDetails", err);
     }
